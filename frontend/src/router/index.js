@@ -34,14 +34,14 @@ export default new Router({
     component: () => import(/* webpackChunkName: "profil" */ '../views/profil.vue')
    },
    {   
-    path: '/formuser',
-    name: 'formuser',
-    component: () => import(/* webpackChunkName: "formuser" */ '../views/formuser.vue')
+    path: '/changeprofil',
+    name: 'changeprofil',
+    component: () => import(/* webpackChunkName: "changeprofil" */ '../views/changeprofil.vue')
    },
    {   
-    path: '/modifypost',
-    name: 'modifypost',
-    component: () => import(/* webpackChunkName: "modifypost" */ '../views/modifypost.vue')
+    path: '/updatepost',
+    name: 'updatepost',
+    component: () => import(/* webpackChunkName: "updatepost" */ '../views/updatepost.vue')
    },
    {   
     path: '/singlepost',
@@ -63,22 +63,15 @@ export default new Router({
     name: 'userpost',
     component: () => import(/* webpackChunkName: "user" */ '../views/userpost.vue')
    },
+   {   
+    path: '/password',
+    name: 'password',
+    component: () => import(/* webpackChunkName: "password" */ '../views/password.vue')
+   },
   
   ]
 })
 
  
-// //  { 
-// //   path: '/users/:user.id', 
-// //   name: 'usersProfil',
-// //   component: () => import(/* webpackChunkName: "usersProfil" */ '../views/users.vue')
-// //  }
-// ]
-
-
-// const router = createRouter({
-//   history: createWebHashHistory(process.env.BASE_URL),
-//   routes
-// })
 
 

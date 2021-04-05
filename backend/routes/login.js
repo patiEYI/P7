@@ -20,5 +20,6 @@ router.post("/signup", verifyPassword, verifyEmail, logCtrl.signup);
 // Se connecter
 router.post("/login",  logCtrl.login);
 // limiter,
+router.put("/updatePassword", verifyPassword, verifyEmail,  logCtrl.updatePassword);
 
 module.exports = router;

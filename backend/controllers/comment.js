@@ -3,14 +3,15 @@ const connect  = require('../BDD/connect');
 
 //Crée un commentaire
 exports.createComment = (req, res) => {
-    if(!req.body) { res.status(400).json({ message: "requete vide !"})}
-
     const msg_comment= req.body.comment;
     const post_id = req.body.post_id; 
     const user_id = req.body.user_id
+    const image_url =  req.file
+    ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+    : "";
 
-    const queryS = `INSERT INTO Comment SET date = NOW() , msg_comment = ? , post_id = ? , user_id = ? `;
-    const inserts = [msg_comment, post_id, user_id]
+    const queryS = `INSERT INTO Comment SET date = NOW() , msg_comment = ? , post_id = ? , user_id = ?, image_url = ? `;
+    const inserts = [msg_comment, post_id, user_id, image_url]
     connect.query( queryS, inserts, (err, results , fields) => {
         if (err) {
             res.status(404).send({

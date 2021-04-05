@@ -4,25 +4,20 @@ const fs = require('fs');
 
 
 //Trouver un seul utilisateur
-exports.findOneUser= (req, res, next) => {
-    if(!req.body) { res.status(400).json({ message: "requete vide !"})}
+exports.findOneUser= (req, res) => {
     const query = req.params.userId
     console.log(query);
     const queryS = `SELECT * FROM user WHERE id = ?` ;
    
-        connect.query(queryS ,query,  function (err, data, fields) {
-            if (err) {
-                res.status(404).send({
-                message: err.message ||  "Aucun utilisateur trouvé !"
-                }) 
-            }else{ 
-                res.send(data)
-            }
-    
-        });
-  
-    
-    
+    connect.query(queryS ,query,  function (err, data, fields) {
+        if (err) {
+            res.status(404).send({
+            message: err.message ||  "Aucun utilisateur trouvé !"
+            }) 
+        }else{ 
+            res.send(data)
+        }
+    });   
    
 }
 
@@ -44,10 +39,8 @@ exports.findAllUsers = (req, res ) => {
 
 // //Modifier un user/
 exports.updateOneUser = (req, res) => {
-    if(!req.body) { res.status(400).json({ message: "requete vide !"})}
     const query = req.params.userId
     console.log(query);
-
     const lastname = req.body.lastname;  console.log(lastname);
     const firstname = req.body.firstname;   console.log(firstname);
     const role = req.body.role;   console.log(role);
@@ -63,19 +56,7 @@ exports.updateOneUser = (req, res) => {
                 res.status(404).send({
                     message: err.message ||  "Aucun utilisateur trouvé !"
                 }) 
-             }
-            //else if (rows[0].image_url){
-            //    const filename = rows[0].image_url.split('/images/')[1];
-            //    fs.unlink(`images/${filename}`, () => {
-            //        connect.query(`UPDATE User SET image_url = ? `, function (error, res, results){
-            //            if (error) {
-            //                return res.status(500).json({message: error.message })
-            //            }
-            //            console.log(results);
-            //            res.status(200).json("Photo bien modifié !")
-            //        })
-            //    })
-            // }
+            }
             else{ 
                res.status(200).json({ message: "ok utilisateur modifier !"});
                 console.log("La solution est: ", results);
@@ -110,9 +91,6 @@ exports.deleteOneUser = (req, res) => {
                         res.status(404).send({
                             message: err.message ||  "Aucun utilisateur trouvé !"
                         }) 
-                    }else{
-                        res.status(200).json({ message: "ok utilisateur supprimé !"});
-                        
                     }
                })
                 

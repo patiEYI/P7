@@ -12,9 +12,9 @@ const connect = mysql.createConnection({
 //test dans la console
 connect.connect(function(err) {
 
-    if (err) throw err;
- 
-    console.log("Connecté à la base de données MySQL!");
+  if (err) throw err;
+
+  console.log("Connecté à la base de données MySQL!");
  
 });
 

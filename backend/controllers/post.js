@@ -19,15 +19,12 @@ exports.createPosts = (req, res) => {
     connect.query(queryS,inserts, function (err, results, fields) {
         if (err) {
             res.status(404).send({
-                message: err.message ||  "Qelque chose est cassé !"
-                
+                message: err.message ||  "Qelque chose est cassé !"    
             }) 
-      //Regex password un maj, un chiffre, un caractère spécial, min:8, max:15
-      const regexP = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/;      return;
+     
         }else{ 
             res.status(200).json({ message: results + "Ok post crée!"});
-                console.log("La solution : ", results);
-                
+            console.log("La solution : ", results);        
         }
 
     }); 
@@ -70,19 +67,18 @@ exports.findAllPosts = (req, res) => {
      const { userId } = req.body; 
     const queryS = "SELECT post_id, date , CONCAT_WS(' ', DAY(date),'/',MONTH(date),'/', YEAR(date) , ' à: ', TIME(date)) AS date_post, description, image_url, user_id FROM Post";
     const inserts = [req.body.userId]
-     
-        connect.query( queryS ,inserts, function (err, data, fields) {
-            if (err) {
-                res.status(404).send({
-                    message: err.message || "Aucun post trouvé!"
-                }) 
-            }else{ 
-                res.send(data)
-                // res.status(200).json(results);//{ message: "Voici tous les posts  !"}
-                // console.log("La solution est: ", results);
-            }
+    
+    connect.query( queryS ,inserts, function (err, data, fields) {
+        if (err) {
+            res.status(404).send({
+                message: err.message || "Aucun post trouvé!"
+            }) 
+        }else{ 
+            res.send(data)
+            
+        }
 
-        });
+    });
     
     
 } 
@@ -99,7 +95,7 @@ exports.findOnePosts = (req, res) => {
             }) 
         }
         else{ 
-            //  console.log("La solution est: ", results);
+           
             res.send(data);
         }
     

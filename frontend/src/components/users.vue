@@ -1,11 +1,11 @@
 <template>
+<!-- Récupération de tous les utilisateurs -->
   <section class="mx-auto mt-5 p-2"
    style="min-width:600px; max-width:900px; background-color:#D8DFE3;"  
   >
    
-    <!-- corps de page-->
     <div class="mx-sm-auto">
-      <!-- retrouve tes collegues-->
+      <!-- Les collegues-->
       <form class="mx-auto form-inline py-5 my-2 col-6">
         <input
           v-model="searchKey"
@@ -15,28 +15,27 @@
           placeholder="Search firstname.."
           aria-label="Search"
         />
-        <!-- <span v-if="searchkey && filteredList >=1">{{ filteredList.length }}</span> -->
       </form>
       <!-- fin -->
 
-       <!-- supprimer tous les users -->
-        <button
-          class="mb-2 btn border-danger btn-ligth text-danger m-5 offset-2 shadow-lg" 
-          @click="deleteUser()"
-          >suprimer tous les collègues
-        </button> 
+      <!-- Boutton Admin pour supprimer tous les collègues -->
+      <button
+        v-if="userId == 102"
+        class="mb-2 btn border-danger btn-ligth text-danger m-5 offset-2 shadow-lg" 
+        @click="deleteUser()"
+        >suprimer tous les collègues
+      </button> 
      
-      <!-- affichage user et suppresion pour admin -->
+      <!-- Utilisateurs -->
       <div class="d-lg-flex row justify-content-around text-center
       justify-content-sm-between    justify-content-md-around">
         
         <div v-for="(user,id) in filteredList" v-bind:key="id"
-            class="user p-2 shadow-lg animation mb-5"
-            style="width:270px;"
+        class="user p-2 shadow-lg animation mb-5" style="width:270px;"
         >  
           <div class="user "  style="width:250px; "> 
             <button
-            v-if="userId == user.id || userId == 76"
+            v-if="userId == user.id || userId == 102"
             class="mb-2 btn border-danger btn-ligth text-danger mt-4 shadow-lg" 
             @click="deleteOneUser(user)"
             >s
@@ -50,31 +49,25 @@
   
               <img
               v-else 
-                src="http://images.nike.com/is/image/emea/PDP_HERO/Nike-Roshe-Run-Print-Womens-Shoe-599432_674_A_PREM.jpg"
-                  width="100px"
-                  class=" justify-content-left border border-primary rounded-circle rounded-circle"
-                  height="100px"
-                  alt="photo-collegue-default"
+              src="http://images.nike.com/is/image/emea/PDP_HERO/Nike-Roshe-Run-Print-Womens-Shoe-599432_674_A_PREM.jpg"
+              width="100px"
+              class=" justify-content-left border border-primary rounded-circle rounded-circle"
+              height="100px"
+              alt="photo-collegue-default"
               />
                   
-              </div>
-                  <div class="mx-auto text-center ">
-                        <hr/>
-                      <h6 class="card-title ">Nom : {{ user.lastname }} </h6> 
-                      <h6 class="card-text  mt-2"> Prenom : {{ user.firstname  }} </h6>
-                      <h6 class="card-text col"> role : {{ user.role }} </h6>
-                      <hr/> 
-
-                  </div>
-                  
-              </div>
-          </div> 
-      </div>
-       
-      
-     
+            </div>
+            <div class="mx-auto text-center ">
+              <hr/>
+              <h6 class="card-title ">Nom : {{ user.lastname }} </h6> 
+              <h6 class="card-text  mt-2"> Prenom : {{ user.firstname  }} </h6>
+              <h6 class="card-text col"> role : {{ user.role }} </h6>
+              <hr/> 
+            </div>
+          </div>
+        </div> 
+      </div> 
     </div>
-  
   </section>
 </template>²
 
