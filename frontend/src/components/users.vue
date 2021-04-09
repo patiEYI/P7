@@ -1,20 +1,10 @@
 <template>
 <!-- Récupération de tous les utilisateurs -->
-  <section class="mx-auto mt-5 p-2"
-   style="min-width:600px; max-width:900px; background-color:#D8DFE3;"  
-  >
-   
+  <section class="mx-auto mt-5 p-2">
     <div class="mx-sm-auto">
       <!-- Les collegues-->
       <form class="mx-auto form-inline py-5 my-2 col-6">
-        <input
-          v-model="searchKey"
-          id="search"
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Search firstname.."
-          aria-label="Search"
-        />
+        <input v-model="searchKey" id="search" class="form-control mr-sm-2" type="search" placeholder="Search firstname.." aria-label="Search"/>
       </form>
       <!-- fin -->
 
@@ -61,7 +51,7 @@
               <hr/>
               <h6 class="card-title ">Nom : {{ user.lastname }} </h6> 
               <h6 class="card-text  mt-2"> Prenom : {{ user.firstname  }} </h6>
-              <h6 class="card-text col"> role : {{ user.role }} </h6>
+              <h6 class="card-text col"> Poste occupé : {{ user.role }} </h6>
               <hr/> 
             </div>
           </div>

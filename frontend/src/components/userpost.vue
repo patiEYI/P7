@@ -35,10 +35,18 @@
                     </h6>
                 </div>
             </div><hr><br>
-                <!-- Button admin || utilisateur pour suprimer un poste  -->
-            <button v-if="userId == post.user_id" @click="deletePost(post)" class="border-danger ml-4 btn text-danger btn-ligth">
-              S  
-            </button>
+                <!-- Button utilisateur pour suprimer ou modifier un poste  -->
+            <div class="d-flex"> 
+                <button v-if="userId == post.user_id" @click="deletePost(post)" class="border-danger ml-4 btn text-danger btn-ligth">
+                   S  
+               </button>
+                 <router-link class="ml-5" to="/updatepost">
+                    <button class="btn  border-warning text-warning mr-5 px-3 py-2 shadow-lg"
+                      v-if="userId == post.user_id || userId == 105"> <i class="fas fa fa-edit"></i>
+                    </button>
+                </router-link>
+            </div>
+        
             <!-- Image du post -->
             <div class="my-4" @click="getOnePost(post)">
                 <p class="card-text ml-4 "  @click="getOnePost(post)">{{ post.description  }} </p>

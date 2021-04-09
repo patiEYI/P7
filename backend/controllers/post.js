@@ -39,6 +39,7 @@ exports.updateOnePosts = (req, res) => {
     const queryS =`UPDATE Post SET date = NOW() , description = ? ,image_url = ? , user_id = ?  WHERE post_id = ${query}`;
     connect.query(queryS, inserts, function (err, results, fields) {
         if (err) {
+            console.log(err);
             res.status(404).send({
                 message: err.message ||  "Impossible to update post !"  
             }) 

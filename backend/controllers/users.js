@@ -47,24 +47,8 @@ exports.updateOneUser = (req, res) => {
     ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
     : "";
     console.log(image_url);
-    const queryS = `UPDATE user SET lastname = ? , firstname = ? , role = ? WHERE id = ${query} `;
-    const inserts = [lastname, firstname, role];
-       if(req.body.image_url) {
-            connect.query(`UPDATE user SET image_url = ? WHERE id = ${query} `,  function (err, results  , fields) {
-                if (err) {
-                    res.status(404).send({
-                        message: err.message ||  "No user found !"
-                    }) 
-                }
-                else{ 
-                res.status(200).json({ message: "Ok update image!"});
-                    console.log("result: ", results);
-                    
-                }
-
-            });
-
-       }
+    const queryS = `UPDATE user SET lastname = ? , firstname = ? , role = ? , image_url = ? WHERE id = ${query} `;
+    const inserts = [lastname, firstname, role, image_url];
 
     connect.query(queryS, inserts,  function (err, results  , fields) {
         if (err) {

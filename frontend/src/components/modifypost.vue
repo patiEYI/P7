@@ -1,7 +1,7 @@
 <template>
 <!-- Formulaire pour modifier un poste -->
     <section class="mx-auto shadow-lg">
-        <form @submit.prevent="submit" enctype="multipart/form-data" class="mx-auto mt-5 needs-validation ">
+        <form @submit.prevent="submit" enctype="multipart/form-data" class="mx-auto mt-5 ">
             <div class="form-group col">
                 <label class="text-primary" for="description"> Description</label>
                 <textarea class="form-control" name="description" rows="3" placeholder="Modifie ton post..." v-model.trim="description" required>
@@ -54,11 +54,10 @@ export default {
         this.image = this.$refs.image.files[0];
         console.log(this.image);
         },
-        // methode d'envoi formulaire avec une image et ou une video
-        submit() {
-            //regex 
+        // methode d'envoi formulaire pour modifier un post
+         submit() { 
             const regex = /^[\w]{3,}$/;
-            if (!regex.test(this.description)) {
+            if (regex.test(this.description)) {
                 this.errors.push("Certains caractères ne sont pas autorisé !")
             }else{ 
                 const formData = new FormData();
@@ -70,14 +69,15 @@ export default {
                     formData.append("description", this.description);
                     formData.append("user_id", this.user_id);
                 }
-                axios.put(`http://localhost:3000/post/${this.postId}`, formData)
-                    .then((response) => { console.log(formData), console.log(response);
-                       this.$router.push("/forum");
+                
+                axios.put(`http://localhost:3000/post/${this.postId}`, formData )
+                    .then((response) => { console.log(response); console.log(formData);
+                    this.$router.push("/userpost")
                     })
                     .catch(
                         (error) => (console.log(error)
                     )
-               );
+                );
             }
         }
     },

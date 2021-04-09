@@ -16,8 +16,8 @@ const logCtrl = require("../controllers/login");
 
 // Creer un user
 router.post("/signup", verifyPassword, verifyEmail , logCtrl.signup);
-// Se connecter
-router.post("/login", limiter ,  logCtrl.login);
+// Se connecter limiter
+router.post("/login" ,  logCtrl.login);
 
 router.put("/updatePassword", verifyPassword, logCtrl.updatePassword);
 

@@ -65,9 +65,9 @@ export default {
                 .catch((error) => {  
                     this.errors = [];
                     if (error) {
-                        this.errors.push(error);
+                        this.errors.push(error.message);
                     }
-                    alert("Veuillez remplir les champs correctement!")
+                    alert(error.message)
                 })
                 .then((response) => {
                     const token = (this.token = response.data.token);

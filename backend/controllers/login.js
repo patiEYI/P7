@@ -43,7 +43,7 @@ exports.login = async (req, res, next) => {
   try {
     const email = req.body.email;
     if (!email) {
-      res.status(400).json("Email can't be empty !");
+      res.status(400).json({message:"Email can't be empty !"});
     }
     const user = await db("user").first("").where({ email: email });
     if (!user) {
@@ -55,7 +55,7 @@ exports.login = async (req, res, next) => {
       const valid = await  bcrypt.compare(req.body.password , user.password);
       console.log(user.password);
       if (!valid) {
-        return res.status(401).json({ err: 'Wrong password !' });
+        return res.status(401).send({ message: 'Wrong password !' });
       }
       else if (valid){
         
@@ -72,7 +72,7 @@ exports.login = async (req, res, next) => {
     }
  
   } catch (e) {
-    res.status(400).json("Something brook!");
+    res.status(400).json({message:"Something brook!"});
   }
 };
 
@@ -82,16 +82,15 @@ exports.updatePassword = async (req, res) => {
     const email = req.body.email;
     
     if (!email) {
-      res.status(400).json("Email can't be empty !");
+      res.status(400).json({message:"Email can't be empty !"});
     }
     
     const user = await db("user").first("").where({ email: email });
     console.log(email);
 
     if (!user) {
-      res.status(404).json("User no found!");
+      res.status(404).json({message:"User no found!"});
     }else{ 
-
       const hash = await bcrypt.hash(req.body.password, 10);
       console.log(hash);
       await db("user").update({
@@ -103,7 +102,7 @@ exports.updatePassword = async (req, res) => {
     }
  
   } catch (e) {
-    res.status(400).json("Something brook!");
+    res.status(400).json({message:"Something brook!"});
   }    
 
 }

@@ -1,7 +1,7 @@
 <template>
 <!-- Modification d'un poste -->
     <div  class="mx-auto p-4 userpost size">
-        <div class="p-2 bg-info">
+        <div class="p-2">
             <Navbar/><br>
             <Modifypost/>  
         </div>

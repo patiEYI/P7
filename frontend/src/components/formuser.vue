@@ -81,11 +81,8 @@ export default {
                     formData.append("lastname", this.lastname);
                     formData.append("firstname", this.firstname);
                     formData.append("role", this.role);
-                } else {
-                    formData.append("lastname", this.lastname);
-                    formData.append("firstname", this.firstname);
-                    formData.append("role", this.role);
                 }
+                
                 axios.put(`http://localhost:3000/users/${this.userId}`, formData )
                     .then((response) => {
                         console.log(formData);
