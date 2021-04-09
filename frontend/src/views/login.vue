@@ -2,17 +2,16 @@
 <!-- Se connecter -->
     <div  class="mx-auto ">
         <div>
-          <Connexion/>
+          <Login/>
         </div>
     </div>
     
 </template>
 <script>
-import Connexion from '../components/connexion.vue'
+import Login from '../components/login.vue'
 export default {
   name: 'login',
-  components: { Connexion},
-   
+  components: { Login},  
    
 }
 </script>

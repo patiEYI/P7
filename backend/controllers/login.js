@@ -2,15 +2,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const connect = require("../BDD/connect");
 const mysql = require("mysql");
-const maskData = require("maskdata");
-
-// Methode masquage email
-const emailMaskOptions = {
-  maskWith: "*",
-  unmaskedStartCharactersBeforeAt: 2,
-  unmaskedEndCharactersAfterAt: 1,
-  maskAtTheRate: false,
-};
 
 //knex pour faire faire des requetes sql asynchrone
 const db = require("knex")({
@@ -20,10 +11,10 @@ const db = require("knex")({
     user: "root",
     password: "",
     database: "groupomania"
-  },
+  }
 });
 
-// signup const hash =
+// signup 
 exports.signup = async (req, res) => {
   try {
     const hash = await bcrypt.hash(req.body.password, 10);
@@ -32,17 +23,17 @@ exports.signup = async (req, res) => {
       lastname: req.body.lastname,
       firstname: req.body.firstname,
       role: req.body.role,
-      email: maskData.maskEmail2(req.body.email, emailMaskOptions),
+      email: req.body.email,
       password: hash,
       image_url:null,
       
     })
-    return res.status(200).json('Ok utilisateur créer !');
+    return res.status(200).json('Ok user created !');
   }catch (error) {
     if (error.errno === 1062) {
-      res.status(400).json("L'email doit etre unique!");
+      res.status(400).json("Email must be unique!");
     } else console.log(error);
-    res.status(500).send("Quelque chose s'est cassé1 !");
+    res.status(500).send("Something brook !");
   }
 };
       
@@ -50,24 +41,21 @@ exports.signup = async (req, res) => {
 //login
 exports.login = async (req, res, next) => {
   try {
-    const email = maskData.maskEmail2(req.body.email, emailMaskOptions);
-    
+    const email = req.body.email;
     if (!email) {
-      res.status(400).json("L'email est requise !");
+      res.status(400).json("Email can't be empty !");
     }
-    
-    const user = await db("user").first("*").where({ email: email });
-    console.log(email);
-    console.log(req.body.password);
-
+    const user = await db("user").first("").where({ email: email });
     if (!user) {
-      res.status(404).json("Utilisateur non trouvé!");
-    }else{ 
+      res.status(404).json("User no found!");
+    }else{
+      console.log(user);
+      console.log(req.body.password); 
 
       const valid = await  bcrypt.compare(req.body.password , user.password);
       console.log(user.password);
       if (!valid) {
-        return res.status(401).json({ err: 'Mot de passe incorrect !' });
+        return res.status(401).json({ err: 'Wrong password !' });
       }
       else if (valid){
         
@@ -84,24 +72,24 @@ exports.login = async (req, res, next) => {
     }
  
   } catch (e) {
-    res.status(400).json("Quelque chose s'est cassé !");
+    res.status(400).json("Something brook!");
   }
 };
 
-// Modifier mot de passe
+// Modifier le mot de passe
 exports.updatePassword = async (req, res) => {
   try {
-    const email = maskData.maskEmail2(req.body.email, emailMaskOptions);
+    const email = req.body.email;
     
     if (!email) {
-      res.status(400).json("L'email est requise !");
+      res.status(400).json("Email can't be empty !");
     }
     
-    const user = await db("user").first("*").where({ email: email });
+    const user = await db("user").first("").where({ email: email });
     console.log(email);
 
     if (!user) {
-      res.status(404).json("Utilisateur non trouvé!");
+      res.status(404).json("User no found!");
     }else{ 
 
       const hash = await bcrypt.hash(req.body.password, 10);
@@ -110,12 +98,12 @@ exports.updatePassword = async (req, res) => {
         password: hash,  
       })
       return res.status(200).json({
-       message:"Mot de passe modifier"
+       message:"Ok user update"
       });
     }
  
   } catch (e) {
-    res.status(400).json("Quelque chose s'est cassé !");
+    res.status(400).json("Something brook!");
   }    
 
 }

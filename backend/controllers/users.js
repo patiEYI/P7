@@ -8,11 +8,10 @@ exports.findOneUser= (req, res) => {
     const query = req.params.userId
     console.log(query);
     const queryS = `SELECT * FROM user WHERE id = ?` ;
-   
     connect.query(queryS ,query,  function (err, data, fields) {
         if (err) {
             res.status(404).send({
-            message: err.message ||  "Aucun utilisateur trouvé !"
+            message: err.message ||  "No user found !"
             }) 
         }else{ 
             res.send(data)
@@ -27,7 +26,7 @@ exports.findAllUsers = (req, res ) => {
     connect.query( "SELECT * FROM User", function (err, data, fields) {
     if (err) {
         res.status(404).send({
-            message: err.message || "Aucun utilisateurs trouvé!"
+            message: err.message || "No user found!"
         }) 
     }else{ 
             res.send(data)
@@ -48,30 +47,43 @@ exports.updateOneUser = (req, res) => {
     ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
     : "";
     console.log(image_url);
-    const queryS = `UPDATE user SET lastname = ? , firstname = ? , role = ? , image_url = ? WHERE id = ${query} `;
-    const inserts = [lastname, firstname, role , image_url];
+    const queryS = `UPDATE user SET lastname = ? , firstname = ? , role = ? WHERE id = ${query} `;
+    const inserts = [lastname, firstname, role];
+       if(req.body.image_url) {
+            connect.query(`UPDATE user SET image_url = ? WHERE id = ${query} `,  function (err, results  , fields) {
+                if (err) {
+                    res.status(404).send({
+                        message: err.message ||  "No user found !"
+                    }) 
+                }
+                else{ 
+                res.status(200).json({ message: "Ok update image!"});
+                    console.log("result: ", results);
+                    
+                }
 
-        connect.query(queryS, inserts,  function (err, results  , fields) {
-            if (err) {
-                res.status(404).send({
-                    message: err.message ||  "Aucun utilisateur trouvé !"
-                }) 
-            }
-            else{ 
-               res.status(200).json({ message: "ok utilisateur modifier !"});
-                console.log("La solution est: ", results);
-                
-            }
+            });
 
-        }); 
-   
-       
+       }
+
+    connect.query(queryS, inserts,  function (err, results  , fields) {
+        if (err) {
+            res.status(404).send({
+                message: err.message ||  "No user found!"
+            }) 
+        }
+        else{ 
+            console.log("result: ", results);
+            res.status(200).json({ message: "Ok update user !"});  
+        }
+
+    });      
 
 }
 
 // //Supprimer un utilisateur
 exports.deleteOneUser = (req, res) => {
-    if(!req.body) { res.status(400).json({ message: "requete vide !"})}
+    if(!req.body) { res.status(400).json({ message: "Empty requests !"})}
     const query = req.params.userId; 
     console.log(query);
     const queryS = `DELETE FROM User WHERE id = ${query} ` ;
@@ -89,7 +101,7 @@ exports.deleteOneUser = (req, res) => {
                 connect.query(queryS, function (err, results, fields) {
                     if (err) {
                         res.status(404).send({
-                            message: err.message ||  "Aucun utilisateur trouvé !"
+                            message: err.message ||  "No user found!"
                         }) 
                     }
                })
@@ -99,10 +111,10 @@ exports.deleteOneUser = (req, res) => {
             connect.query(queryS, function (err, fields) {
                 if (err) {
                     res.status(500).send({
-                        message: err.message || "Quelque chose s'est cassé !"
+                        message: err.message || "Something broke !"
                     }) 
                 }else{
-                    res.status(200).json({ message: "ok utilisateur supprimé !"});
+                    res.status(200).json({ message: "Ok user deleted !"});
                     
                 }
             }) 
@@ -113,15 +125,14 @@ exports.deleteOneUser = (req, res) => {
 
 // //Supprimer tous les utilisateurs
 exports.deleteAllUsers = (req, res) => {
-    if(!req.body) { res.status(400).json({ message: "requete vide !"})}
     connect.query( "DELETE FROM user", function (err, results, fields) {
         if (err) {
             res.status(404).send({
-                message: err.message || "Aucun utilisateurs à supprimé!"
+                message: err.message || "No user found!"
             }) 
         }else{ 
-            res.status(200).json({ message: "Tous les Utilisateurs ont été supprimé  !"});
-                console.log("La solution: ", results);
+            res.status(200).json({ message: "Ok all users deleted  !"});
+                
         }
 
     });

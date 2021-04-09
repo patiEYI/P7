@@ -96,44 +96,4 @@ test("Si email déja utilisé",  () => {
 
 })
 
-//login
-// test("Connexion user, usage standard",  () => {
-//     http.post('http://localhost:3000/login', {
-//         email: user.email,
-//         password: user.password 
-//      })
-//     expect(login.login(user.email, user.password)).toBe( "test@gmail.com","pass")
 
-// });
-
-// test("Si un des champs est manquant",  () => {
-//     http.post('http://localhost:3000/login', {
-//         password: user.password 
-//      })
-//     expect(login.login(user.length)).toBe(2)
-//     console.log("Tout les champs sont requis !");
-
-// });
-
-// test("Si le mot de passe ne correspond pas ",  () => {
-//     http.post('http://localhost:3000/login', {
-//         email: user.password,
-//         password: user.password 
-//      })
-//     expect(login.login(user.password) ).toBe(user.password)
-//     console.log("Mot de passe incorrect!");
-
-// })
-
-
-
-// test("Si le format d' email ne correspond pas",  () => {
-//     http.post('http://localhost:3000/login', {
-        
-//         email: "test@gma",
-//         password: user.password 
-//      })
-//      expect(login.login(user.email)).toBe("test@gmail.com")
-    
-
-// })

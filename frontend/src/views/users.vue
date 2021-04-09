@@ -1,6 +1,6 @@
 <template>
 <!-- Affichage de tous les utilisateurs -->
-  <div  class="mx-auto p-4" style=" min-width:700px; max-width:1100px; background-color:#D8DFE3; ">
+  <div  class="mx-auto p-4 size bg-color">
     <div class="mt-5">
       <Navbar/>
       <Users/>

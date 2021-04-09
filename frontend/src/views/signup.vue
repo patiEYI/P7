@@ -1,19 +1,17 @@
 <template>
 <!-- S'incrire -->
     <div  class="mx-auto p-4">
-   
         <div  mt-5 >
-          <Inscription/>
+          <Signup/>
         </div>
-    
     </div>
     
 </template>
 <script>
-import Inscription from '../components/inscription.vue'
+import Signup from '../components/signup.vue'
 export default {
   name: 'signup',
-  components: { Inscription },  
+  components: { Signup },  
 }
 </script>
 <style scoped></style>

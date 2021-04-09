@@ -20,6 +20,5 @@ new Vue({
   VueAxios,
   BootstrapVue,
   IconsPlugin,
-  
   render: h => h(App)
 }).$mount('#app')

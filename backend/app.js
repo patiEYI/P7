@@ -1,13 +1,10 @@
 const express = require('express');
-// const bodyParser = require("body-parser");
 const path = require('path');
 const cookieSession = require("cookie-session");
 const helmet = require("helmet");
 
-//creer fichier env ds dossier P
-// const dotenv = require('dotenv');
-// dotenv.config({ path: './.env'});
-
+// desactive le cache
+const nocache = require("nocache");
 
 //les routes
 const loginRoutes = require("./routes/login");
@@ -18,13 +15,13 @@ const likeRoutes = require("./routes/like");
 
 const app = express();
 
-
-// methode de securité helmet
-
-
-//Eviter les erreurs cors
+//Methode de securité helmet
 app.use(helmet());
 
+// Appel de fonction desactive cache
+app.use(nocache());
+
+//Eviter les erreurs cors
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -38,7 +35,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// securise session
+//Session
 app.use(
   cookieSession({
     name: "session",
@@ -50,12 +47,12 @@ app.use(
     },
   })
 );
-  // app.use(bodyParser.json());
-  app.use (express.urlencoded({extended: false})); // Analyser les corps encodés en URL
+
+  app.use (express.urlencoded({extended: false})); //Analyser les corps encodés en URL
   app.use(express.json());
 
   
-// traitetement d'image de maniere static
+// Traitetement d'image de maniere static
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 // appel route
@@ -64,9 +61,5 @@ app.use(userRoutes);
 app.use(postRoutes);
 app.use(commentRoutes);
 app.use(likeRoutes);
-
-module.exports = app;
-
-
 
 module.exports = app;

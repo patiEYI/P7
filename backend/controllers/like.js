@@ -4,7 +4,7 @@ const connect = require("../BDD/connect")
 
 //Creer un like
 exports.createLike = (req, res) => {
-    if(!req.body) { res.status(400).json({ message: "requete vide !"})}
+    if(!req.body) { res.status(400).json({ message: "Empty requests!"})}
     const  post_id = req.body.post_id;
     const  user_id = req.body.user_id; console.log(user_id);
     const inserts = [ user_id, post_id,]
@@ -13,28 +13,28 @@ exports.createLike = (req, res) => {
         if (err) {
             console.log(err);
             res.status(404).json({
-                message: err.message || "impossible de liker !"
+                message: err.message || "impossible to like !"
             }) 
         }else{
-            res.status(200).json({ message: "ok like crée !"});
-            console.log("La solution : ", results);
+            res.status(200).json({ message: "Like created!"});
+            
         }
     })
 }
 
 //Suprimer un like
 exports.deleteLike = (req, res) => {
-    if(!req.body) { res.status(400).json({ message: "requete vide !"})}
+    if(!req.body) { res.status(400).json({ message: "Empty requests  !"})}
     const query = req.params.id
     const queryS = `DELETE FROM Nbr_like WHERE id = ${query}`;
     connect.query(queryS, (err, results) => {
         if (err) {console.log(err)
             res.status(404).json({
-                message: err.message ||  "impossible de supprimer le like !"
+                message: err.message ||  "impossible to delete like !"
             }) 
         }else{
-            res.status(200).json({ message: "ok like supprimé !"});
-            console.log("La solution : ", results);
+            res.status(200).json({ message: "Ok like deleted!"});
+    
         }
     })
 
@@ -46,11 +46,10 @@ exports.findAllLikes = (req,res) => {
         if (err) {
             console.log("error: ", err);
             res.status(404).json({
-            message: err.message ||  "Aucun like trouvé !"
+            message: err.message ||  "No like found !"
             })
           return;
         }
-        // console.log("like: ",data);
         res.send(data);
     });
 }

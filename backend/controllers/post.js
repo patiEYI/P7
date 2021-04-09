@@ -1,13 +1,10 @@
 const mysql = require('mysql');
 const connect  = require('../BDD/connect');
-const fs = require('fs');
-const { Client } = require ( 'pg' )  
-
-
+const fs = require('fs');  
 
 //Creer un nouveau post
 exports.createPosts = (req, res) => {
-    if(!req.body) { res.status(400).json({ message: "requete vide !"})}
+    if(!req.body) { res.status(400).json({ message: "Empty requests !"})}
     const description = req.body.description; 
     const image_url =  req.file
     ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
@@ -15,16 +12,14 @@ exports.createPosts = (req, res) => {
     const user_id = req.body.user_id
     const queryS = `INSERT INTO Post SET date = NOW() , description = ? , image_url  = ? , user_id = ? `;
     const inserts = [ description, image_url, user_id];
-    
     connect.query(queryS,inserts, function (err, results, fields) {
         if (err) {
             res.status(404).send({
-                message: err.message ||  "Qelque chose est cassé !"    
+                message: err.message ||  "Impossible to create post!"    
             }) 
-     
         }else{ 
-            res.status(200).json({ message: results + "Ok post crée!"});
-            console.log("La solution : ", results);        
+            res.status(200).json({ message: results + "Ok post created !"});
+                    
         }
 
     }); 
@@ -33,29 +28,24 @@ exports.createPosts = (req, res) => {
 
 //Modifier un post
 exports.updateOnePosts = (req, res) => {
-    if(!req.body) { res.status(400).json({ message: "requete vide !"})}
-    const query = req.params.postId; console.log(query);
-    const description = req.body.description; console.log(description);
-    const user_id = req.body.user_id; console.log(user_id);
-
+    if(!req.body) { res.status(400).json({ message: "Empty requests !"})}
+    const query = req.params.postId; 
+    const description = req.body.description;
+    const user_id = req.body.user_id; 
     const image_url =  req.file
     ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
     : "";
-    console.log(image_url);
-    
     const inserts = [ description , image_url , user_id];
-    const queryS =`UPDATE Post SET date = NOW() , description = ? ,image_url = ? , user_id = ?  WHERE post_id = ${query}`;//${query}
+    const queryS =`UPDATE Post SET date = NOW() , description = ? ,image_url = ? , user_id = ?  WHERE post_id = ${query}`;
     connect.query(queryS, inserts, function (err, results, fields) {
         if (err) {
             res.status(404).send({
-                message: err.message ||  "Post impossible à modifié !"
-                
+                message: err.message ||  "Impossible to update post !"  
             }) 
            
         } 
       
-        res.status(200).json({ message: "Ok post modifié!"});
-        console.log("La solution : ", results);
+        res.status(200).json({ message: "Ok post update!"});
             
     }); 
 
@@ -71,7 +61,7 @@ exports.findAllPosts = (req, res) => {
     connect.query( queryS ,inserts, function (err, data, fields) {
         if (err) {
             res.status(404).send({
-                message: err.message || "Aucun post trouvé!"
+                message: err.message || "No post found !"
             }) 
         }else{ 
             res.send(data)
@@ -85,13 +75,13 @@ exports.findAllPosts = (req, res) => {
 
 // //Récupérer un seul post
 exports.findOnePosts = (req, res) => {
-    if(!req.body) { res.status(400).json({ message: "requete vide !"})}
+    if(!req.body) { res.status(400).json({ message: "Empty requests !"})}
      const query = req.params.postId;
     const queryS = `SELECT  post_id, date , CONCAT_WS(' ', DAY(date),'/',MONTH(date),'/', YEAR(date) , ' à: ', TIME(date)) AS date_post , description, image_url, user_id FROM post WHERE post_id = ${query} `;
     connect.query(queryS, function (err,  data, fields) {
         if (err) {
             res.status(404).send({
-                message: err.message ||  "Aucun post trouvé !"
+                message: err.message ||  "No post found !"
             }) 
         }
         else{ 
@@ -107,7 +97,7 @@ exports.findOnePosts = (req, res) => {
 
 // //Suppimer un post
 exports.deleteOnePosts = (req, res) => {
-    if(!req.body) { res.status(400).json({ message: "requete vide !"})}
+    if(!req.body) { res.status(400).json({ message: "Empty requests !"})}
     const query = req.params.postId;
     const queryS = `DELETE FROM Post WHERE post_id = ${query}` ;
      
@@ -122,11 +112,10 @@ exports.deleteOnePosts = (req, res) => {
                 connect.query(queryS , function (err, results,  fields) {
                     if (err) {
                         res.status(404).send({
-                            message: err.message ||  "Aucun post trouvé !"
+                            message: err.message ||  "No post found  !"
                         }) 
                     }
-                    console.log("La solution : ", results);
-                    res.status(200).json({ message: "Post bien supprimé !"});   
+                    res.status(200).json({ message: "Ok post deleted!"});   
                 })
                 
             });
@@ -135,11 +124,10 @@ exports.deleteOnePosts = (req, res) => {
             connect.query(queryS , function (err, results,  fields) {
                 if (err) {
                     res.status(500).send({
-                        message: err.message ||  "Quelque chose s'est cassé !"
+                        message: err.message ||  "Something broke !"
                     }) 
                 }
-                console.log("La solution : ", results);
-                res.status(200).json({ message: "Post bien supprimé !"});
+                res.status(200).json({ message: "Ok post deleted !"});
                 
                 
             })
@@ -156,11 +144,11 @@ exports.deleteAllPosts = (req, res) => {
     connect.query( "DELETE FROM post", function (err, results, fields) {
         if (err) {
             res.status(404).send({
-                message: err.message || "Aucun post à supprimer!"
+                message: err.message || "No post to delete!"
             }) 
         }else{ 
-            res.status(200).json({ message: "Tous les post ont été supprimés  !"});
-                console.log("La solution: ", results);
+            res.status(200).json({ message: "ALL post deleted  !"});
+                
         }
 
     });

@@ -1,37 +1,24 @@
 <template>
 <!-- Récupération de les postes -->
-    <section v-if="posts.length !== 0" id="post" 
-       class="shadow-lg mx-auto" style="min-width:600px;max-width:800px;"
-    >
+    <section v-if="posts.length !== 0" class="shadow-lg mx-auto post bg-info">
     <!-- Boutton admin pour supprimer tous les postes -->
         <button
-            v-if="userId == 102"
-            @click="deleteAllPost()" class="border-danger btn 
-            m-4 text-danger"
-            >Supprimer tous les posts
+            v-if="userId == 105" @click="deleteAllPost()" class="border-danger btn  m-4 text-danger">
+            Supprimer tous les posts
         </button>
-        
-        <div v-for="(post , post_id ) in posts.slice().reverse()"
-        v-bind:key="post_id">
-            <div class="user text-white justify-content-start bg-info d-flex  p-2">
-                
+
+        <!-- Corps du post -->
+        <div v-for="(post, post_id ) in posts.slice().reverse()" v-bind:key="post_id" class="mb-5">
+            <hr>
+            <div class="user text-dark justify-content-start bg-info d-flex p-2 ">
                 <img v-if="users.map((user) => {
                 if (user.id === post.user_id) return user.image_url;
                 }).join('') !== (null || '')"
                 :src=" users.map((user) => {
                 if (user.id === post.user_id) return user.image_url;
-                }) .join('')" alt="photo user" 
-                 width="100px" height="100px"
-                class="rounded-circle mr-3 border border-primary  "  > 
+                }) .join('')" alt="photo user" class="rounded-circle mr-3 border border-primary post__user-img"  > 
             
-                <img
-                v-else
-                src="../assets/icon.png"
-                width="100px" height="100px"
-                class="rounded-circle mr-3 border border-primary "
-                alt="logo-profil-default"
-                />
-              
+                <img v-else src="../assets/icon.png" class="rounded-circle mr-3 border border-primary post__user-img" alt="logo-profil-default"/>
                 <div class="justify-content-center my-auto">
                     <h5>
                         {{ users.map((user) => {
@@ -51,219 +38,119 @@
                         Publié le: {{ post.date_post }}
                     </h6>
                 </div>
-            </div><br>
+            </div><hr><br>
                 <!-- Button admin || utilisateur pour suprimer un poste  -->
-            <button
-            v-if="userId == post.user_id || userId == 102"
-            @click="deletePost(post)" class="border-danger ml-4 btn text-danger btn-ligth"
-            >S  
+            <button v-if="userId == post.user_id || userId == 105" @click="deletePost(post)" class="border-danger ml-4 btn text-danger btn-ligth">
+              S  
             </button>
 
-            <!-- Body du post -->
-            <div class="my-4" @click="getOnePost(post)">
-                <p class="card-text ml-4 "  @click="getOnePost(post)">{{ post.description  }} </p>
-                <router-link   to="/singlepost/:post_id"> 
-                    <img  
-                    v-if="post.image_url !== '' &&
-                    post.image_url !== null &&
-                    (post.image_url.split('.')[2] === 'png' || 'jpg') &&
-                    post.image_url.split('.')[2] !== 'mp4'"
-                    class="card-img img-thumbnail mx-auto" 
-                    :src="post.image_url" alt="Image||video post"
-                  
-                    height="600px"
-                    >
-                    <div
-                    v-if="post.image_url !== '' &&
-                    post.image_url !== null &&
-                    post.image_url.split('.')[2] === 'mp4'
-                    " class="card-img"
-                    >
-                        <video type="video" aspect="4by3" controls post="">
-                        <source :src="post.image_url" type="video/mp4" />
+            <!-- Image du post -->
+            <router-link to="/singlepost"> 
+                <div class="my-4" @click="getOnePost(post)">
+                    <p class="text-dark ml-4">{{ post.description  }} </p>
+                    
+                    <img v-if="post.image_url !== '' && post.image_url !== null &&
+                    (post.image_url.split('.')[2] === 'png' || 'jpg') && post.image_url.split('.')[2] !== 'mp4'"
+                    class="card-img img-thumbnail post__img mx-auto" :src="post.image_url" alt="Image||video post">
+                    <!-- Video -->
+                    <div v-if="post.image_url !== '' && post.image_url !== null && post.image_url.split('.')[2] === 'mp4'">
+                        <video type="video" aspect="4by3" controls post="" class="post__img">
+                            <source :src="post.image_url" type="video/mp4"/>
                         </video>
                     </div>
-
-                </router-link> 
-            </div>
+                    
+                </div>
+            </router-link> 
             <!-- Fin body post -->
 
             <!--like-->
-            <div class="d-flex ml-3 ">
-                <div class=""> 
+            <div class="d-flex mx-3 justify-content-between">
+                <div> 
                     {{
                         likes.filter((like) => {
                         return like.post_id == post.post_id;
                         }).length
                     }}
-                    <i class="fa fa fa-thumbs-up fa-fw " >{{  }}</i>
+                    <i class="fa fa fa-thumbs-up fa-fw "></i>
                 </div>
-                <!--  -->
                 <div class="ml-5">
                     {{
                         unlikes.filter((unlike) => {
                         return unlike.post_id == post.post_id;
                         }).length
                     }}
-                    <i class="fa fa fa-thumbs-down fa-fw" ></i>
-                     
+                    <i class="fa fa fa-thumbs-down fa-fw" ></i> 
                 </div>
-               
-    
-            </div>
-            
-            <hr>
-            <div class="d-flex ">
+            </div><hr>
+            <div class="d-flex mx-3 justify-content-between">
                 <button class="like btn" @click="addLike(post, unlikes.map((unlike) => {
-                if ( unlike.user_id == userId &&
-                unlike.post_id == post.post_id) return unlike.id
-                })
-                .join(''),likes.map((like) => {
-                if (like.user_id == userId && like.post_id == post.post_id)
-                return like.id; }).join(''))
-                ">
-                <i class="fas fa fa-thumbs-up fa-fw "  aria-label="false"></i>J'aime
+                    if ( unlike.user_id == userId && unlike.post_id == post.post_id) return unlike.id
+                    }).join(''),likes.map((like) => {
+                    if (like.user_id == userId && like.post_id == post.post_id) return like.id; }).join('')) ">
+                    <i class="fas fa fa-thumbs-up fa-fw "  aria-label="false"></i>J'aime
                 </button>
-
                 <!-- unlike -->
                 <button class="like btn" @click="addUnlike(post, likes.map((like) => {
-                if ( like.user_id == userId &&
-                like.post_id == post.post_id) return like.id
-                })
-                .join(''),unlikes.map((unlike) => {
-                if (unlike.user_id == userId && unlike.post_id == post.post_id)
-                return unlike.id; }).join(''))
-                ">
-                <i class="fas fa fa-thumbs-down fa-fw "  aria-label="false"  v-on:click="counter += 1"></i>J'aime pas
+                    if ( like.user_id == userId && like.post_id == post.post_id) return like.id
+                    }).join(''),unlikes.map((unlike) => {
+                    if (unlike.user_id == userId && unlike.post_id == post.post_id) return unlike.id; }).join(''))">
+                    <i class="fas fa fa-thumbs-down fa-fw "  aria-label="false"></i>J'aime pas
                 </button>
-                
             </div> <hr>
             <!-- Fin like -->
-            
             <!-- Debut commentaire -->
-                <div
-                v-for="(comment, id) in comments.filter((comment) => {
-                    return comment.post_id == post.post_id;
-                    
-                })"
-                v-bind:key="id"
-                class=" d-flex flex-row align-items-start ml-3 pt-2 radius mb-2 shadow-md"
-                style="background-color:#D8DFE3; width:500px;"
-                >
-               
-                <img
-                    v-if="
+                <div v-for="(comment, id) in comments.filter((comment) => { return comment.post_id == post.post_id;})"
+                v-bind:key="id" class="post__comment d-flex flex-row align-items-start ml-3 pt-2 radius mb-2 shadow-md">
+                <!-- Commentaire image -->
+                <img v-if="
                     users.map((user) => {
-                        if (user.id === comment.user_id) return user.image_url;
-                        }) .join('') !== (null || '')
-                    "
-                    :src="
-                    users.map((user) => {
-                        if (user.id === comment.user_id) return user.image_url;
-                        })
-                        .join('')
-                    "
-                    width="40px"
-                    height="40px"
-                    class=" mr-3  rounded-circle ml-2"
-                    alt="photo-profil-comment"
+                    if (user.id === comment.user_id) return user.image_url;}).join('') !== (null || '')"
+                    :src=" users.map((user) => { if (user.id === comment.user_id) return user.image_url; }).join('')"
+                    class=" mr-3 post__comment-img rounded-circle ml-2" alt="photo-profil-comment"
                 />
                 <img
-                    v-else
-                    src="../assets/icon.png"
-                    width="40px"
-                    height="40px"
-                    class=" mr-3 ml-2 d-flex   rounded-circle"
-                    alt="photo-profil-comment-default"
-                />
-                    <div class="  ">
+                    v-else src="../assets/icon.png" class=" mr-3 ml-2 d-flex post__comment-img rounded-circle" alt="photo-profil-comment-default"/>
+                    <div>
                         <h6 class=" text-dark">
                         {{
                             users.map((user) => {
                                 if (user.id === comment.user_id) return user.firstname;
-                            })
-                            .join("")
+                            }).join("")
                         }}
                         {{
                             users.map((user) => {
                                 if (user.id === comment.user_id) return user.lastname;
-                            })
-                            .join("")
+                            }).join("")
                         }}
                         </h6>
                         <p> {{comment.date_comment }} </p>
                         <p class=" text-left text-secondary  ">
-                        {{ comment.msg_comment }}
-                        </p>
-                        <p width="100px" heigth="100px"
-                        > {{comment.image_url}} 
+                             {{ comment.msg_comment }}
                         </p>
                     </div>
-                    
-                    <button
-                    v-if="userId == comment.user_id || userId == 102"
-                    @click="deleteComment(comment)" 
-                    class="border-danger btn-ligth text-danger mt-2 btn ml-5 py-0 "
-                    >s
+                    <!-- Button pour supprimer un commentaire -->
+                    <button v-if="userId == comment.user_id || userId == 105" @click="deleteComment(comment)" class="border-danger btn-ligth text-danger mt-2 btn ml-5 py-0">
+                       s
                     </button>
                 </div>
-
-            <!-- Formulaire commentaire -->
-            <form @submit.prevent="submit(post)"
-            enctype="multipart/form-data"
-            class="mt-1 form-group">
-                <label class="text-dark " for="commentaire"></label>
-                <div
-                    v-for="(user,id) in userConnect"
-                    v-bind:key="id"
-                    class="d-flex  align-items-start">
-                    <img
-                    v-if='user.image_url !== null || ""'
-                    :src="user.image_url"
-                    width="40px" height="40px"
-                    class=" mx-4 rounded-circle"
-                    alt="photo-profil"
-                    />
-                    <img
-                    v-else
-                    src="../assets/icon.png"
-                    width="40px"
-                    height="40px"
-                    class=" mx-4 justify-content-left"
-                    alt="photo-profil-default"
-                    />
-                    <input
-                    type="text"
-                    class="form-control radius"
-                    name="commentaire"
-                    placeholder="Ecrivez votre commentaire..."
-                    v-model.trim="commentaire" required
-                    style="width:400px"
-                    />
-                    <input
-                    class="border btn ml-1 px-3 radius"
-                    type="submit" value="Valider"
-                    />
-                </div>
-                <label for="image_url"></label>
-                    <input type="file"
-                    ref="image" class="file-input" @change="upload" />
-            </form>
+            <div v-for="(user,id) in userConnect" v-bind:key="'A' + id" class="mt-4 d-flex" @click="getOnePost(post)">
+                <img v-if='user.image_url !== null || ""' :src="user.image_url" class="post__comment-img mx-4 rounded-circle" alt="photo-profil"/>
+                <img v-else src="../assets/icon.png" class="post__comment-img  mx-4 justify-content-left rounded-circle" alt="photo-profil-default"/>
+                <Comment /> 
+            </div>
             <!-- fin comment-->
-        </div>
-      
-       
+        </div>  
     </section>
 </template>
-<!--script-->
+
 <script>
 import axios from 'axios';
+import Comment from './comment.vue';
 export default {
     name: "post",
-  components: { },
+    components: { Comment },
   data() {
       return {
-        commentaire: "",
         posts: [],
         users: [],
         userConnect: [],
@@ -271,19 +158,8 @@ export default {
         likes: [],
         unlikes: [],
         userId: localStorage.getItem("userId"),
-        image:null || "",
-        image_url: null, 
       }
     },
-      computed: {
-        filterPost() {
-        return this.posts.filter((post) => {
-        return post.user_id == this.userConnect.id;
-        
-        });
-    },
-  
-  },
    // les routes
     async created() {
         this.posts = [];
@@ -292,104 +168,66 @@ export default {
          
          //Tous les postes
         await axios.get("http://localhost:3000/post")
-        .then(( response) => ((this.posts = response.data), console.log(this.posts)))
-        .catch((error) => console.log(error));
+            .then(( response) => ((this.posts = response.data), console.log(this.posts)))
+            .catch((error) => console.log(error));
 
-        //Tous les users console.log(users)
+        //Tous les users
         await axios.get("http://localhost:3000/users")
-        .then(( response) => ((this.users = response.data),console.log(this.users))) 
-        .catch((error) => console.log(error));
+            .then(( response) => ((this.users = response.data),console.log(this.users))) 
+            .catch((error) => console.log(error));
 
         //Un user
         await axios.get(`http://localhost:3000/users/${this.userId}` )
-        .then(( response) => ((this.userConnect = response.data), console.log(this.userConnect)))
-        .catch((error) => console.log(error));
+            .then(( response) => ((this.userConnect = response.data), console.log(this.userConnect)))
+            .catch((error) => console.log(error));
 
-        // les likes
+        //les likes
         await axios.get("http://localhost:3000/like")
-        .then(( response) => ((this.likes = response.data), console.log(this.likes)))
-        .catch((error) => console.log(error));
+            .then(( response) => ((this.likes = response.data), console.log(this.likes)))
+            .catch((error) => console.log(error));
 
         //les unlikes
         await axios.get("http://localhost:3000/unlike")
-        .then((response) => ((this.unlikes = response.data), console.log(this.unlikes)) )
-        .catch((error) => console.log(error));
+            .then((response) => ((this.unlikes = response.data), console.log(this.unlikes)) )
+            .catch((error) => console.log(error));
         
 
         // Recupérer tous les commentaires
         await axios.get("http://localhost:3000/comment")
-        .then(( response) => ((this.comments = response.data), console.log(this.comments)))
-        .catch((error) => console.log(error));
+            .then(( response) => ((this.comments = response.data), console.log(this.comments)))
+            .catch((error) => console.log(error));
     },
 
     methods: {
-        // pour upload image 
-        upload() {
-        this.image = this.$refs.image.files[0];
-        // console.log(this.image);
-        },
-       // Envoie comment
-        submit(post) {
-            //regex exclut $'=+(){}"_
-            // const regex = /^[^$'=+(){}"_)](.|\w){5,}$/;
-            //  const formData = new FormData();
-            //     if (this.image !== null || "") {
-            //         formData.append("image", this.image, this.image.filename);
-            //         formData.append("comment", this.commentaire);
-            //         formData.append("post_id", post.post_id);
-            //         formData.append("user_id", this.userId);
-            //     } else {
-            //         formData.append("comment", this.commentaire);
-            //         formData.append("post_id", post.post_id);
-            //         formData.append("user_id", this.userId);
-            //     }
-            // if (!regex.test(this.commentaire)) {
-            //     this.errors.push("Certains caractères ne sont pas autorisé !")
-            // }else{ 
-                axios.post("http://localhost:3000/comment",{ 
-                    // formData
-                    comment: this.commentaire,
-                    post_id: post.post_id,
-                    user_id: this.userId
-                })
-                .then((response) => 
-                console.log(response),
-                // this.$router.go("/forum")
-                )
-                .catch((error) => console.log(error));
-            // }
-        },
-        
         // Récupérer un postId
         async getOnePost(post) {
             const postId = post.post_id
             await sessionStorage.removeItem("postId");
             await sessionStorage.setItem("postId", postId);
-            this.$router.push("/singlepost");
+            // this.$router.push("/singlepost");
         },
 
         //Supprimer un post
-       async deletePost(post) {
+        async deletePost(post) {
            alert("Vous êtes sûr le point de supprimer ce post !")
            await axios.delete(`http://localhost:3000/post/${post.post_id}`)
-           .then((response) => {console.log(response.results), this.$router.go("/forum")})
-           .catch((error) => console.log(error));
+            .then((response) => {console.log(response.results), this.$router.go("/forum")})
+            .catch((error) => console.log(error));
        },
 
        //Supprrimer tous les posts
        async deleteAllPost() {
-           
            await axios.delete(`http://localhost:3000/post`)
-           .then((response) => {console.log(response), this.$router.go("/forum")})
-           .catch((error) => console.log(error));
+            .then((response) => {console.log(response), this.$router.go("/forum")})
+            .catch((error) => console.log(error));
        },
 
        //Supprimer comment
        async deleteComment(comment) {
           alert("Vous êtes sûr le point de supprimer  ce commentaire !")
           await axios.delete(`http://localhost:3000/comment/${comment.id}`)
-          .then((response) => {console.log(response), this.$router.go("/forum");})
-          .catch((error) => console.log(error));
+            .then((response) => {console.log(response), this.$router.go("/forum");})
+            .catch((error) => console.log(error));
        },
 
         // fonction addlike et delete unlike
@@ -446,10 +284,7 @@ export default {
     
 }
 </script>
-<style scoped>
-#post{
-    overflow: hidden;
-}
+<style scoped lang="scss">
 .radius{
     border-radius: 2rem;
 }

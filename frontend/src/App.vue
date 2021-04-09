@@ -32,7 +32,7 @@
   border-color:#1f1f2c;  
    
 }
-.sub_btn {
+.login__btn {
   padding: 1rem 1rem;
   font-size: 1.1rem;
   border-radius: 2rem;
@@ -56,7 +56,7 @@ h1 {
   color: #fff;
   padding-bottom: 2rem;
 }
-.signup_link {
+.signup__link {
   color:#0E0EEE;
 }
 
@@ -71,11 +71,44 @@ h1 {
   transform: scale(1);
   transition: transform 400ms;
   &:hover{
-      transform: scale(1.01);  
+    transform: scale(1.01);  
   }
 }
 .radius {
 border-radius: 2rem;
 color:#000;
+}
+.post{
+  overflow: hidden;
+  min-width:600px;
+  max-width:800px;
+  &__user-img{
+    width:70px;
+    height:70px;
+  }
+  &__img{
+    height:650px;
+  }
+  &__comment{
+    background-color:#D8DFE3;
+    width:500px;
+  }
+  &__comment-img{
+    width:40px;
+    height:40px;
+  }
+  &__input{
+    width:400px;
+  }
+}
+.radius{
+  border-radius: 2rem;
+}
+.bg-color{
+  background-color:#D8DFE3
+}
+.size{
+  min-width:700px; 
+  max-width:1100px;
 }
 </style>

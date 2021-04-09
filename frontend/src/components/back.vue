@@ -4,7 +4,6 @@
         <div class="col-2 text-left p-5">
            <i class="fas fa fa-chevron-left p-3 rounded-circle"></i>
         </div>
-        <slot></slot>
     </div>
 </template>
 <script>

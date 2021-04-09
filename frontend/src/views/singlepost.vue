@@ -1,8 +1,8 @@
 <template>
 <!-- Récupération d'un poste -->
-    <div  class="mx-auto p-4">
-        <div class="mx-auto">
-          <Navbar/><br><br><br>
+    <div  class="mx-auto shadow-lg">
+        <div class="mx-auto p-2 size">
+          <Navbar/><br><br>
           <Post/>
         </div>
     </div>
@@ -17,5 +17,4 @@ export default {
     
 }
 </script>
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
