@@ -10,9 +10,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
- 
 }
-
+router-link{
+  text-decoration: none;
+}
 
 .form-control{
   // position:relative;
@@ -110,5 +111,26 @@ color:#000;
 .size{
   min-width:700px; 
   max-width:1100px;
+}
+
+.button__delete{
+  &::before {
+    content: "...";
+    font-size: 2rem;
+      
+  }
+  .button__display{
+    display: none;
+    }
+  &:hover{
+    .button__display{
+      display: inline-block;
+    }
+    &::before {
+      content: "";
+    
+    }
+  }   
+       
 }
 </style>

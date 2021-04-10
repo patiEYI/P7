@@ -20,8 +20,8 @@
                         {{ user.lastname }} {{ user.firstname }} 
                     </h4>
                     <h6 class="text-center col ">{{ user.role }} </h6>
-                    <button class="my-4 btn border-danger offset-3 text-danger py-0 profil__btn shadow-lg" @click="deleteOneUser()">
-                        supprimer le compte
+                    <button class="text-white py-0 btn offset-2 btn-ligth button__delete" @click="deleteOneUser()">
+                        <span class="button__display border shadow-lg px-1">Supprimer le compte</span>
                     </button>   
                 </div>
             </div>

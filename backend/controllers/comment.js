@@ -25,7 +25,7 @@ exports.createComment = (req, res) => {
 
 //Récupérer tous les commentaires
 exports.findAllComment = (req, res) => {
-    const queryS =  "SELECT id , date , CONCAT_WS(' ', DAY(date),'/',MONTH(date),'/', YEAR(date) , ' à: ', TIME(date)) AS date_comment, msg_comment, post_id, user_id FROM Comment";
+    const queryS =  "SELECT id , date , CONCAT_WS(' ', DAY(date),'/',MONTH(date),'/', YEAR(date) , ' à ', TIME(date)) AS date_comment, msg_comment, post_id, user_id FROM Comment";
     connect.query(queryS, (err, data, results, fields) => {
         if (err) { 
             console.log("error: ", err);

@@ -3,14 +3,14 @@
     <section v-if="posts.length !== 0" class="shadow-lg mx-auto post bg-info">
     <!-- Boutton admin pour supprimer tous les postes -->
         <button
-            v-if="userId == 105" @click="deleteAllPost()" class="border-danger btn  m-4 text-danger">
-            Supprimer tous les posts
+            v-if="userId == 105" @click="deleteAllPost()" class="ml-2 btn text-white btn-ligth button__delete">
+            <span class="button__display border shadow-lg p-1">Supprimer tous les postes</span> 
         </button>
 
         <!-- Corps du post -->
         <div v-for="(post, post_id ) in posts.slice().reverse()" v-bind:key="post_id" class="mb-5">
             <hr>
-            <div class="user text-dark justify-content-start bg-info d-flex p-2 ">
+            <div class=" text-dark justify-content-start bg-info d-flex p-2 ">
                 <img v-if="users.map((user) => {
                 if (user.id === post.user_id) return user.image_url;
                 }).join('') !== (null || '')"
@@ -35,18 +35,18 @@
                         }}
                     </h5>
                     <h6 >
-                        Publié le: {{ post.date_post }}
+                        Publié le {{ post.date_post }}
                     </h6>
                 </div>
-            </div><hr><br>
+            </div><hr>
                 <!-- Button admin || utilisateur pour suprimer un poste  -->
-            <button v-if="userId == post.user_id || userId == 105" @click="deletePost(post)" class="border-danger ml-4 btn text-danger btn-ligth">
-              S  
+            <button v-if="userId == post.user_id || userId == 105" @click="deletePost(post)" class=" ml-2 btn text-white btn-ligth button__delete">
+                <span class="button__display border shadow-lg p-1">Supprimer le post</span>  
             </button>
 
             <!-- Image du post -->
             <router-link to="/singlepost"> 
-                <div class="my-4" @click="getOnePost(post)">
+                <div class="my-2" @click="getOnePost(post)">
                     <p class="text-dark ml-4">{{ post.description  }} </p>
                     
                     <img v-if="post.image_url !== '' && post.image_url !== null &&
@@ -129,11 +129,11 @@
                         </p>
                     </div>
                     <!-- Button pour supprimer un commentaire -->
-                    <button v-if="userId == comment.user_id || userId == 105" @click="deleteComment(comment)" class="border-danger btn-ligth text-danger mt-2 btn ml-5 py-0">
-                       s
+                    <button v-if="userId == comment.user_id || userId == 105" @click="deleteComment(comment)" class="offset-3 pt-0 btn text-dark btn-ligth button__delete">
+                       <span class="button__display border border-white p-1">Supprimer</span> 
                     </button>
                 </div>
-            <div v-for="(user,id) in userConnect" v-bind:key="'A' + id" class="mt-4 d-flex" @click="getOnePost(post)">
+            <div v-for="(user,id) in userConnect" v-bind:key="'A' + id" class="mt-3 d-flex" @click="getOnePost(post)">
                 <img v-if='user.image_url !== null || ""' :src="user.image_url" class="post__comment-img mx-4 rounded-circle" alt="photo-profil"/>
                 <img v-else src="../assets/icon.png" class="post__comment-img  mx-4 justify-content-left rounded-circle" alt="photo-profil-default"/>
                 <Comment /> 
@@ -285,6 +285,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+ 
 .radius{
     border-radius: 2rem;
 }

@@ -7,7 +7,7 @@
     <div class="shadow-lg">
       <Navbar/><br><br><hr>
       <Formpost/>
-      <div class="p-2 bg-info shadow-lg">
+      <div class="p-2 bg-info shadow-lg pt-5">
         <Posts/>     
       </div> 
       

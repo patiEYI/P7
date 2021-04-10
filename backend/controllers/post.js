@@ -56,7 +56,7 @@ exports.updateOnePosts = (req, res) => {
 //Récupérer tous les posts
 exports.findAllPosts = (req, res) => {
      const { userId } = req.body; 
-    const queryS = "SELECT post_id, date , CONCAT_WS(' ', DAY(date),'/',MONTH(date),'/', YEAR(date) , ' à: ', TIME(date)) AS date_post, description, image_url, user_id FROM Post";
+    const queryS = "SELECT post_id, date , CONCAT_WS(' ', DAY(date),'/',MONTH(date),'/', YEAR(date) , ' à ', TIME(date)) AS date_post, description, image_url, user_id FROM Post";
     const inserts = [req.body.userId]
     
     connect.query( queryS ,inserts, function (err, data, fields) {

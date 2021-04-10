@@ -31,17 +31,17 @@
                         }}
                     </h5>
                     <h6 >
-                        Publié le: {{ post.date_post }}
+                        Publié le {{ post.date_post }}
                     </h6>
                 </div>
-            </div><hr><br>
-                <!-- Button utilisateur pour suprimer ou modifier un poste  -->
-            <div class="d-flex"> 
-                <button v-if="userId == post.user_id" @click="deletePost(post)" class="border-danger ml-4 btn text-danger btn-ligth">
-                   S  
+            </div><hr>
+            <!-- Button utilisateur pour suprimer ou modifier un poste  -->
+            <div> 
+                <button v-if="userId == post.user_id" @click="deletePost(post)" class="ml-2 btn text-white btn-ligth button__delete">
+                   <span class="button__display border shadow-lg p-1">Supprimer le post</span>  
                </button>
                  <router-link class="ml-5" to="/updatepost">
-                    <button class="btn  border-warning text-warning mr-5 px-3 py-2 shadow-lg"
+                    <button class="btn  border-warning text-warning mr-5 mt-3 px-2 justify-flex-end py-0 shadow-lg"
                       v-if="userId == post.user_id || userId == 105"> <i class="fas fa fa-edit"></i>
                     </button>
                 </router-link>

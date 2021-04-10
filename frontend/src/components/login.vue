@@ -70,6 +70,7 @@ export default {
                     alert(error.message)
                 })
                 .then((response) => {
+                    localStorage.clear();
                     const token = (this.token = response.data.token);
                     const userId = response.data.userId;
                     localStorage.setItem("token", token),

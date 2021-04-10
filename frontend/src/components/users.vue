@@ -1,34 +1,27 @@
 <template>
 <!-- Récupération de tous les utilisateurs -->
-  <section class="mx-auto mt-5 p-2">
+  <section class="mx-auto mt-5 p-2 user">
     <div class="mx-sm-auto">
       <!-- Les collegues-->
-      <form class="mx-auto form-inline py-5 my-2 col-6">
-        <input v-model="searchKey" id="search" class="form-control mr-sm-2" type="search" placeholder="Search firstname.." aria-label="Search"/>
-      </form>
-      <!-- fin -->
+      <div class="d-flex">
+        <form class="mx-auto form-inline py-5 my-2 col-6">
+          <input v-model="searchKey" id="search" class="form-control mr-sm-2" type="search" placeholder="Search firstname.." aria-label="Search"/>
+        </form>
+        <!-- Boutton Admin pour supprimer tous les collègues -->
+        <button v-if="userId == 105"
+          class="ml-2 btn text-white btn-ligth button__delete"  @click="deleteUser()" >
+          <span class="button__display border shadow-lg p-1">Supprimer tous les utilisateurs</span>
+        </button> 
 
-      <!-- Boutton Admin pour supprimer tous les collègues -->
-      <button
-        v-if="userId == 102"
-        class="mb-2 btn border-danger btn-ligth text-danger m-5 offset-2 shadow-lg" 
-        @click="deleteUser()"
-        >suprimer tous les collègues
-      </button> 
+      </div>
      
       <!-- Utilisateurs -->
-      <div class="d-lg-flex row justify-content-around text-center
-      justify-content-sm-between    justify-content-md-around">
-        
-        <div v-for="(user,id) in filteredList" v-bind:key="id"
-        class="user p-2 shadow-lg animation mb-5" style="width:270px;"
-        >  
-          <div class="user "  style="width:250px; "> 
-            <button
-            v-if="userId == user.id || userId == 102"
-            class="mb-2 btn border-danger btn-ligth text-danger mt-4 shadow-lg" 
-            @click="deleteOneUser(user)"
-            >s
+      <div class="d-lg-flex row justify-content-around text-center justify-content-sm-between    justify-content-md-around">
+        <div v-for="(user,id) in filteredList" v-bind:key="id" class="user__div animation p-2 shadow-lg mb-5">  
+          <div>
+            <button v-if="userId == user.id || userId == 105" class="btn text-white btn-ligth button__delete" 
+              @click="deleteOneUser(user)">
+              <span class="button__display border shadow-lg p-1">Supprimer</span>
             </button> 
 
             <div class="cursor mt-3">
@@ -125,13 +118,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.profil{
-  background-color:rgb(192, 210, 248);
-}
 .color {
-   border-radius: 2rem; 
-   font-size: 1.3rem;
-   color: white;
+  border-radius: 2rem; 
+  font-size: 1.3rem;
+  color: white;
 }
 
 .user{
@@ -139,13 +129,17 @@ export default {
   background-color:#01215E;
   border-radius: 2rem;
   color: #fff;
+  &__div{
+    width:270px;
+
+  }
     
 }
 .animation{
   transform: scale(1);
   transition: transform 400ms;
   &:hover{
-      transform: scale(1.1);  
+    transform: scale(1.03);  
   }
 }
 

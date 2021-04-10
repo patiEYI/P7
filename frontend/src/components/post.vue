@@ -26,13 +26,13 @@
                         }).join("")
                         }}
                     </h5>
-                    <h6>{{ post.date_post }}</h6>    
+                    <h6>Publié le {{ post.date_post }}</h6>    
                 </div>
             </div><hr>
             <!--Button pour modifier le poste -->
             <div class="my-4">
                 <router-link class="ml-5" to="/updatepost">
-                    <button class="btn  border-warning text-warning mr-5 px-3 py-2 shadow-lg"
+                    <button class="btn  border-warning text-warning mr-5 px-2 py-0 shadow-lg"
                       v-if="userId == post.user_id || userId == 105"> <i class="fas fa fa-edit"></i>
                     </button>
                 </router-link> 

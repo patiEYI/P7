@@ -2,7 +2,7 @@
 <!-- Affichage de tous les utilisateurs -->
   <div  class="mx-auto p-4 size bg-color">
     <div class="mt-5">
-      <Navbar/>
+      <Navbar/><br>
       <Users/>
     </div>
   </div>
