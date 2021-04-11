@@ -1,6 +1,6 @@
 <template>
 <!-- Récupération d'un utilisateur -->
-    <section class="mx-auto text-center shadow-lg profil" >
+    <section class="mx-auto loader text-center shadow-lg profil" >
        <div class="mt-5"> 
            <div  v-for="(user,id) in User" v-bind:key="id">
                 <div class="text-center mx-auto">

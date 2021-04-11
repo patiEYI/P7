@@ -1,6 +1,6 @@
 <template>
 <!-- Récupération de tous les utilisateurs -->
-  <section class="mx-auto mt-5 p-2 user">
+  <section class="mx-auto mt-5 p-2 user loader">
     <div class="mx-sm-auto">
       <!--Retrouve les collègues-->
       <div class="d-flex">
@@ -15,7 +15,7 @@
       </div>
       <!-- Utilisateurs -->
       <div class="d-lg-flex row justify-content-around text-center justify-content-sm-between justify-content-md-around">
-        <div v-for="(user,id) in filteredList" v-bind:key="id" class="user__div animation p-2 shadow-lg mb-5">  
+        <div v-for="(user,id) in filteredList.slice().reverse()" v-bind:key="id" class="user__div animation p-2 shadow-lg mb-5">  
           <div>
             <!-- Boutton pour supprimer un utilisateur -->
             <button v-if="userId == user.id || userId == 105" class="btn text-white btn-ligth button__delete" 
@@ -40,20 +40,16 @@
       </div> 
     </div>
   </section>
-</template>²
+</template>
 
 <script>
 import axios from 'axios';
-// import Post from './post.vue';
-
-
-
 export default {
   name:"users",
   components: {},
   data() {
     return {
-       users: [],
+      users: [],
       searchKey: "",
       userId: localStorage.getItem("userId"),
     };
@@ -61,12 +57,12 @@ export default {
   
   async created() {
   this.users = [];
-
     await axios.get("http://localhost:3000/users")
       .then(
         (response) => ((this.users = response.data), console.log(this.users))
       )
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error)
+    );
   },
   
 
@@ -83,12 +79,12 @@ export default {
   methods: {
      // Supprimer un user
      async deleteOneUser(user) {
-        alert("Vous êtes sûr le point de supprimer ce utilisateur !")
-        await axios.delete(`http://localhost:3000/users/${user.id}`)
-        .then((response) => {
-          console.log(response), this.$router.go("/users");
-        })
-        .catch((error) => console.log(error));
+      alert("Vous êtes sûr le point de supprimer ce utilisateur !")
+      await axios.delete(`http://localhost:3000/users/${user.id}`)
+      .then((response) => {
+        console.log(response), this.$router.go("/users");
+      })
+      .catch((error) => console.log(error));
     },
     
      // Supprimer tous les user

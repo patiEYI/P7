@@ -58,7 +58,7 @@ export default {
         this.errors = [];
         if (!this.validEmail(this.email)) {
             this.errors.push('Valid email required.');
-        }else { 
+        }else if (this.errors.length === 0){ 
             axios.post('http://localhost:3000/login', {
                 email: this.email,
                 password: this.password   })

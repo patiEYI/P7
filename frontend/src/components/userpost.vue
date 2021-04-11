@@ -1,7 +1,7 @@
 <template>
 <!-- Les postes d'un user -->
-   <section  class="shadow-lg mx-auto userPost size">
-        <div class="justify-content-start bg-info  p-2">
+   <section  class="loader shadow-lg mx-auto userPost size">
+        <div class="justify-content-start bg-info p-2">
             <!-- Corps du post -->
             <p v-if="filterPost.length === 0" class="text-center">Vous n'avez aucun poste. Cliquer ici pour Publier
                 <router-link to="/forum" class="text-white">Forum</router-link>

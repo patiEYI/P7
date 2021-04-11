@@ -72,7 +72,7 @@ export default {
                 
                 axios.put(`http://localhost:3000/post/${this.postId}`, formData )
                     .then((response) => { console.log(response); console.log(formData);
-                    this.$router.push("/userpost")
+                    this.$router.push("/singlepost")
                     })
                     .catch(
                         (error) => (console.log(error)

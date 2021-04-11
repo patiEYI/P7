@@ -5,6 +5,7 @@
     </div> -->
       <div class="mx-autosize">
         <Navbar /><hr><br>
+        <div class="mt-5"><loader/></div>
         <Userpost class="mb-5 rounded-lg"/> 
       </div>
     <!-- <div class="py-5 d-none d-sm-block d-md-none d-lg-block  col-3 bg-color">
@@ -12,11 +13,12 @@
   </section>
 </template>
 <script>
+import Loader from '../components/loader.vue'
 import Navbar from '../components/navbar.vue'
 import Userpost from '../components/userpost.vue'
 export default {
  name: 'forum',
-	components: { Userpost, Navbar}, 
+	components: { Userpost, Navbar, Loader}, 
 }
 </script>
 <style scoped lang="scss">

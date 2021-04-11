@@ -84,7 +84,8 @@ export default {
                     }
                 })
                 .then((response) => {
-                    this.errors;
+                    alert("Votre mot de passe à été bien modifier !")
+                    this.errors = [];
                     if (!this.errors.length){ 
                         console.log(response)
                         this.$router.push("/")

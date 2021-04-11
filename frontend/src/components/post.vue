@@ -1,6 +1,6 @@
 <template >
 <!-- Récupération d'un poste -->
-    <section class=" post shadow-lg mx-auto bg-info mt-5 size">
+    <section class=" post shadow-lg mx-auto bg-info mt-5 size loader">
         <div v-for="(post , post_id ) in posts" v-bind:key="'B' + post_id" class="bg-info pt-3 size" ><hr>
             <div class="text-dark d-flex pl-3 bg-info" >
                 <img v-if="users.map((user) => {

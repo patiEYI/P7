@@ -96,6 +96,7 @@
                 </button>
             </div> <hr>
             <!-- Fin like -->
+
             <!-- Debut commentaire -->
                 <div v-for="(comment, id) in comments.filter((comment) => { return comment.post_id == post.post_id;})"
                 v-bind:key="id" class="post__comment d-flex flex-row align-items-start ml-3 pt-2 radius mb-2 shadow-md">
@@ -108,6 +109,11 @@
                 <img
                     v-else src="../assets/icon.png" class=" mr-3 ml-2 d-flex post__comment-img rounded-circle" alt="photo-profil-comment-default"/>
                     <div>
+                        <!-- Button pour supprimer un commentaire -->
+                        <button v-if="userId == comment.user_id || userId == 105" @click="deleteComment(comment)" 
+                           class="pt-0 btn text-dark btn-ligth button__delete btn-display offset-6">
+                           <span class="button__display border border-white pl-1">Supprimer</span> 
+                        </button>
                         <h6 class=" text-dark">
                         {{
                             users.map((user) => {
@@ -121,14 +127,10 @@
                         }}
                         </h6>
                         <p> {{comment.date_comment }} </p>
-                        <p class=" text-left text-secondary  ">
+                        <p class=" text-left text-secondary border post__comment-msg ">
                              {{ comment.msg_comment }}
                         </p>
                     </div>
-                    <!-- Button pour supprimer un commentaire -->
-                    <button v-if="userId == comment.user_id || userId == 105" @click="deleteComment(comment)" class="offset-3 pt-0 btn text-dark btn-ligth button__delete">
-                       <span class="button__display border border-white p-1">Supprimer</span> 
-                    </button>
                 </div>
             <div v-for="(user,id) in userConnect" v-bind:key="'A' + id" class="mt-3 d-flex" @click="getOnePost(post)">
                 <img v-if='user.image_url !== null || ""' :src="user.image_url" class="post__comment-img mx-4 rounded-circle" alt="photo-profil"/>
@@ -281,4 +283,10 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.post__comment-msg{
+    width: 400px;
+}
+.btn-display{
+    position:absolute;
+}
 </style>
