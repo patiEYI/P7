@@ -5,7 +5,7 @@ const verifyPassword = require("../services.js/password");
 const verifyEmail = require("../services.js/email");
 
 const rateLimit = require("express-rate-limit");
-//limite les connexions abusives
+//limiter les connexions abusives
 const limiter = rateLimit({
   windowMs: 3 * 60 * 1000, // 3 minutes
   max: 100, // limit each IP to 3 requests per windowMs
@@ -16,9 +16,9 @@ const logCtrl = require("../controllers/login");
 
 // Creer un user
 router.post("/signup", verifyPassword, verifyEmail , logCtrl.signup);
-// Se connecter limiter
-router.post("/login" ,  logCtrl.login);
-
+// Se connecter 
+router.post("/login" ,limiter,logCtrl.login);
+// Changer de mot de passe
 router.put("/updatePassword", verifyPassword, logCtrl.updatePassword);
 
 module.exports = router;

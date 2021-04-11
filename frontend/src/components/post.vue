@@ -1,9 +1,8 @@
 <template >
 <!-- Récupération d'un poste -->
-    <section class=" post mx-auto bg-info mt-5">
-        <div v-for="(post , post_id ) in posts" v-bind:key="'B' + post_id" class="bg-info pt-3 " >
-            <hr>
-            <div class="user text-dark d-flex pl-3 bg-info" >
+    <section class=" post shadow-lg mx-auto bg-info mt-5 size">
+        <div v-for="(post , post_id ) in posts" v-bind:key="'B' + post_id" class="bg-info pt-3 size" ><hr>
+            <div class="text-dark d-flex pl-3 bg-info" >
                 <img v-if="users.map((user) => {
                 if (user.id === post.user_id) return user.image_url;
                 }).join('') !== (null || '')" :src=" users.map((user) => {
@@ -142,7 +141,6 @@ export default {
             postId: sessionStorage.getItem("postId"),
             posts: [],
             users: [],
-            userConnect: {},
             comments: [],
             userId: localStorage.getItem("userId"),
         }
@@ -151,16 +149,11 @@ export default {
     async created() {
         this.posts = [];
         this.users = [];
-        this.userConnect = {};
+
 
         //Tous les users console.log(users)
         await axios.get("http://localhost:3000/users")
         .then(( response) => ((this.users = response.data),console.log(this.users))) 
-        .catch((error) => console.log(error));
-
-        //Un user
-        await axios.get(`http://localhost:3000/users/${this.userId}` )
-        .then(( response) => ((this.userConnect = response.data), console.log(this.userConnect)))
         .catch((error) => console.log(error));
 
         //un post

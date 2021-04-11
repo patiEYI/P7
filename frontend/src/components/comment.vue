@@ -36,7 +36,7 @@ export default {
     methods: {
        // Envoie comment
         createComment() {
-            const regex = /^[\w\s\r]{3,}$/;
+            const regex = /^[^+,=]{3,}$/
             if (!regex.test(this.comment)) {
                 this.errors.push("Certains caractères ne sont pas autorisé !")
             }else{ 
@@ -46,7 +46,7 @@ export default {
                     user_id : this.userId, 
                 })
                     .then((response) =>  console.log(response),
-                    this.$router.go("/forum")
+                    document.location.reload()
                     )
                     .catch((error) => console.log(error)
                 );

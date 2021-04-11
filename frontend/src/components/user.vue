@@ -13,7 +13,7 @@
                     <p class="text-center mt-4 ">
                         Informations du compte
                         <router-link to="/changeprofil" >
-                            <i class="fas fa fa-edit p-1 "></i>
+                            <i class="fas fa fa-edit p-1 text-warning"></i>
                         </router-link> 
                     </p> 
                     <h4 class="text-center col" >
@@ -27,7 +27,7 @@
             </div>
         </div> 
         <Logo class="mt-5"/>
-        <Back/>
+        <router-link to="/forum"> <Back/></router-link> 
     </section>
 </template>
 <script>
@@ -58,12 +58,11 @@ export default {
         async deleteOneUser() {
             alert("Vous êtes sûr le point de supprimer votre compte !")
             await axios.delete(`http://localhost:3000/users/${this.userId}`)
-            .then((response) => {
-            console.log(response), this.$router.go("/");
-            localStorage.clear();
-            sessionStorage.clear();
-            })
-            .catch((error) => console.log(error));
+                .then((response) => {
+                console.log(response), this.$router.push("/");
+                })
+                .catch((error) => console.log(error)
+            );
         },
     }
     

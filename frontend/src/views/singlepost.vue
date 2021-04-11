@@ -1,8 +1,8 @@
 <template>
 <!-- Récupération d'un poste -->
-    <div  class="mx-auto shadow-lg">
-        <div class="mx-auto p-2 size">
-          <Navbar/><br><br>
+    <div class="mx-auto shadow-lg post">
+        <div class="mx-auto p-2">
+          <Navbar/><hr><br>
           <Post/>
         </div>
     </div>

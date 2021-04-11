@@ -1,6 +1,6 @@
 <template>
 <!-- Connexion de l'utilisateur -->
-   <section class="login color col-lg-6 col-md-6 mx-auto text-center shadow-lg border border-primary rounded-lg mt-5">
+   <section class="login color col-lg-4 col-md-6 mx-auto text-center shadow-lg border border-primary rounded-lg mt-5">
       <h1 class="h1 display-5 text-center "> Groupomania </h1>  
        <div class="white">
             <form @submit="checklogin" class="login__form " action='' method="">
@@ -58,16 +58,17 @@ export default {
         this.errors = [];
         if (!this.validEmail(this.email)) {
             this.errors.push('Valid email required.');
-        }else if (this.errors.length === 0) { 
+        }else { 
             axios.post('http://localhost:3000/login', {
                 email: this.email,
                 password: this.password   })
                 .catch((error) => {  
                     this.errors = [];
                     if (error) {
-                        this.errors.push(error.message);
+                        console.log(error);
+                        this.errors.push(error);
                     }
-                    alert(error.message)
+                    alert(error)
                 })
                 .then((response) => {
                     localStorage.clear();

@@ -1,6 +1,6 @@
 <template >
 <!-- Barre de navigation -->
-  <div >
+  <div class="navigation" >
     <nav class="navbar fixed-top justify-content-around  bg-info navbar-light ">
       <router-link class="navbar-brand text-dark forum " to="/forum"  aria-current="page" > 
         <i class="fa fa-home" aria-hidden="true"></i>
@@ -16,7 +16,6 @@
       </router-link>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02"></div>
     </nav>
-    
   </div> 
 </template>
 
@@ -26,13 +25,15 @@ export default {
   data() {
     return {
       token: localStorage.getItem("token"),
-      userId: localStorage.getItem("userId"), 
+      userId: localStorage.getItem("userId"),
+      postId: localStorage.getItem("postId") 
     };
   },
   methods: {
     signOut() {
-      alert("Vous êtes sur le point de vous déconnecter !")
-      localStorage.clear();
+      localStorage.removeItem("userId");
+      localStorage.removeItem("token");
+      sessionStorage.removeItem("postId");
     }
   }
 }
@@ -44,7 +45,4 @@ i {
 .forum{
   font-size: 2rem;
 }
-
-
-
 </style>

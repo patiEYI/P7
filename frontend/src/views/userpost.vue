@@ -1,15 +1,14 @@
 <template>
 <!-- L'utilisateur récupère tous ses postes -->
-  <section id="forum" class="d-lg-flex mx-auto size">
-    <div class="py-2 align-items-center d-none d-sm-block d-md-none d-lg-block col-3 bg-color">
-    </div>
-      <div class="mx-auto mt-5">
-        <Navbar class="mb-5"/><br><br><br>
-        <Userpost/> 
+  <section class="mx-auto size mt-5">
+    <!-- <div class="py-2 align-items-center d-none d-sm-block d-md-none d-lg-block col-3 bg-color">
+    </div> -->
+      <div class="mx-autosize">
+        <Navbar /><hr><br>
+        <Userpost class="mb-5 rounded-lg"/> 
       </div>
-     
-    <div class="py-5 d-none d-sm-block d-md-none d-lg-block  col-3 bg-color">
-    </div>
+    <!-- <div class="py-5 d-none d-sm-block d-md-none d-lg-block  col-3 bg-color">
+    </div> -->
   </section>
 </template>
 <script>
@@ -21,4 +20,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+section{
+  max-width: 700px;
+}
 </style>

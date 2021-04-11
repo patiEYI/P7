@@ -30,7 +30,7 @@ export default new Router({
     },
    {   
     path: '/profil/:userId',
-    name: 'admin',
+    name: 'profil',
     component: () => import(/* webpackChunkName: "profil" */ '../views/profil.vue')
    },
    {   
@@ -54,14 +54,10 @@ export default new Router({
     component: () => import(/* webpackChunkName: "users" */ '../views/users.vue')
    },
    {   
-    path: '/users/:id',
-    name: 'user',
-    component: () => import(/* webpackChunkName: "user" */ '../views/users.vue')
-   },
-   {   
+      
     path: '/userpost',
     name: 'userpost',
-    component: () => import(/* webpackChunkName: "user" */ '../views/userpost.vue')
+    component: () => import(/* webpackChunkName: "userpost" */ '../views/userpost.vue')
    },
    {   
     path: '/password',

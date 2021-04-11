@@ -1,7 +1,7 @@
 <template>
 <!-- Création d'un utilisateur -->
-   <section id="signup" class="color col-lg-6 col-md-6 mx-auto text-center shadow-lg border border-primary rounded-lg mt-5">
-       <h1 class="dissplay-5"> Groupomania </h1>
+   <section id="signup" class="color col-lg-4 col-md-6 mx-auto text-center shadow-lg border border-primary rounded-lg ">
+       <h1 class="dissplay-5 pb-0"> Groupomania </h1>
        <div class="text-white">
             <form   @submit="checkForm" id="signup" action="" method="">
                 <!-- S'affiche en cas d'erreurs -->
@@ -105,8 +105,7 @@ export default {
 </script>
 <style scoped lang="scss">
 form {
-  padding-bottom: 20%;
-  padding-top: 20%;
+  
   input{
     border-radius: 2rem;
     background-color: #01215E; 

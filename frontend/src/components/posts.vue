@@ -1,6 +1,6 @@
 <template>
 <!-- Récupération de les postes -->
-    <section v-if="posts.length !== 0" class="shadow-lg mx-auto post bg-info">
+    <section v-if="posts.length !== 0" class="loader shadow-lg mx-auto post bg-info">
     <!-- Boutton admin pour supprimer tous les postes -->
         <button
             v-if="userId == 105" @click="deleteAllPost()" class="ml-2 btn text-white btn-ligth button__delete">
@@ -46,9 +46,8 @@
 
             <!-- Image du post -->
             <router-link to="/singlepost"> 
-                <div class="my-2" @click="getOnePost(post)">
-                    <p class="text-dark ml-4">{{ post.description  }} </p>
-                    
+                <div class="my-2"  @click="getOnePost(post)">
+                    <p class="text-dark ml-4 mr-3">{{ post.description  }} </p>
                     <img v-if="post.image_url !== '' && post.image_url !== null &&
                     (post.image_url.split('.')[2] === 'png' || 'jpg') && post.image_url.split('.')[2] !== 'mp4'"
                     class="card-img img-thumbnail post__img mx-auto" :src="post.image_url" alt="Image||video post">
@@ -57,8 +56,7 @@
                         <video type="video" aspect="4by3" controls post="" class="post__img">
                             <source :src="post.image_url" type="video/mp4"/>
                         </video>
-                    </div>
-                    
+                    </div>   
                 </div>
             </router-link> 
             <!-- Fin body post -->
@@ -101,9 +99,8 @@
             <!-- Debut commentaire -->
                 <div v-for="(comment, id) in comments.filter((comment) => { return comment.post_id == post.post_id;})"
                 v-bind:key="id" class="post__comment d-flex flex-row align-items-start ml-3 pt-2 radius mb-2 shadow-md">
-                <!-- Commentaire image -->
-                <img v-if="
-                    users.map((user) => {
+                <!-- Commentaire image user-->
+                <img v-if=" users.map((user) => {
                     if (user.id === comment.user_id) return user.image_url;}).join('') !== (null || '')"
                     :src=" users.map((user) => { if (user.id === comment.user_id) return user.image_url; }).join('')"
                     class=" mr-3 post__comment-img rounded-circle ml-2" alt="photo-profil-comment"
@@ -204,7 +201,6 @@ export default {
             const postId = post.post_id
             await sessionStorage.removeItem("postId");
             await sessionStorage.setItem("postId", postId);
-            // this.$router.push("/singlepost");
         },
 
         //Supprimer un post
@@ -285,8 +281,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
- 
-.radius{
-    border-radius: 2rem;
-}
 </style>

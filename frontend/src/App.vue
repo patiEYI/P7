@@ -112,7 +112,7 @@ color:#000;
   min-width:700px; 
   max-width:1100px;
 }
-
+// Button pour supprimer
 .button__delete{
   &::before {
     content: "...";
@@ -132,5 +132,19 @@ color:#000;
     }
   }   
        
+}
+// Animation au chargement du forum
+.loader{
+  animation: display 0ms 1s both;
+}
+@keyframes display {
+	0% {
+		transform: translateX(-9999px);
+	}
+
+	100% {
+		transform: translateX(0);
+	}
+	
 }
 </style>

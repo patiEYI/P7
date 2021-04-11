@@ -2,7 +2,7 @@
 <!-- Récupération de tous les utilisateurs -->
   <section class="mx-auto mt-5 p-2 user">
     <div class="mx-sm-auto">
-      <!-- Les collegues-->
+      <!--Retrouve les collègues-->
       <div class="d-flex">
         <form class="mx-auto form-inline py-5 my-2 col-6">
           <input v-model="searchKey" id="search" class="form-control mr-sm-2" type="search" placeholder="Search firstname.." aria-label="Search"/>
@@ -12,33 +12,21 @@
           class="ml-2 btn text-white btn-ligth button__delete"  @click="deleteUser()" >
           <span class="button__display border shadow-lg p-1">Supprimer tous les utilisateurs</span>
         </button> 
-
       </div>
-     
       <!-- Utilisateurs -->
-      <div class="d-lg-flex row justify-content-around text-center justify-content-sm-between    justify-content-md-around">
+      <div class="d-lg-flex row justify-content-around text-center justify-content-sm-between justify-content-md-around">
         <div v-for="(user,id) in filteredList" v-bind:key="id" class="user__div animation p-2 shadow-lg mb-5">  
           <div>
+            <!-- Boutton pour supprimer un utilisateur -->
             <button v-if="userId == user.id || userId == 105" class="btn text-white btn-ligth button__delete" 
               @click="deleteOneUser(user)">
               <span class="button__display border shadow-lg p-1">Supprimer</span>
             </button> 
-
-            <div class="cursor mt-3">
-              <img v-if="user.image_url !== null || ''"
-              :src="user.image_url" width="100px" height="100px"
-              class=" rounded-circle " alt="photo-collegue" 
-              />
-  
-              <img
-              v-else 
+            <div class="cursor mt-3 user__div">
+              <img v-if="user.image_url !== null || ''" :src="user.image_url" class="rounded-circle " alt="photo-collegue" />
+              <img v-else 
               src="http://images.nike.com/is/image/emea/PDP_HERO/Nike-Roshe-Run-Print-Womens-Shoe-599432_674_A_PREM.jpg"
-              width="100px"
-              class=" justify-content-left border border-primary rounded-circle rounded-circle"
-              height="100px"
-              alt="photo-collegue-default"
-              />
-                  
+              class="justify-content-left border border-primary rounded-circle rounded-circle" alt="photo-collegue-default"/>   
             </div>
             <div class="mx-auto text-center ">
               <hr/>
@@ -96,7 +84,7 @@ export default {
      // Supprimer un user
      async deleteOneUser(user) {
         alert("Vous êtes sûr le point de supprimer ce utilisateur !")
-      await axios.delete(`http://localhost:3000/users/${user.id}`)
+        await axios.delete(`http://localhost:3000/users/${user.id}`)
         .then((response) => {
           console.log(response), this.$router.go("/users");
         })
@@ -131,10 +119,16 @@ export default {
   color: #fff;
   &__div{
     width:270px;
+    img{
+    width:100px;
+    height:100px;
+  }
 
   }
+
     
 }
+
 .animation{
   transform: scale(1);
   transition: transform 400ms;

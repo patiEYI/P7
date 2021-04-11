@@ -1,6 +1,6 @@
 <template>
 <!-- Modification du profil de l'utilisateur  -->
-    <div  class="mx-auto p-4" style=" min-width:700px; max-width:1100px;  ">
+    <div  class="mx-auto p-4 size" >
    
         <div  mt-5 >
             <Navbar/><br><br><br><br>

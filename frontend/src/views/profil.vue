@@ -1,10 +1,10 @@
 <template>
 <!-- Profil de l'utilisateur connecter -->
-    <div  class="mx-auto">
-        <div>
-           <Navbar/><br><br><br>
-           <User/>
-        </div>
+    <div  class="mx-auto mt-5">
+      <div>
+        <Navbar/><hr>
+        <User class="mt-5 rounded-lg"/>
+      </div>
     </div>
     
 </template>

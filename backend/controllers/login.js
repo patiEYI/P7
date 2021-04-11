@@ -51,14 +51,12 @@ exports.login = async (req, res, next) => {
     }else{
       console.log(user);
       console.log(req.body.password); 
-
       const valid = await  bcrypt.compare(req.body.password , user.password);
       console.log(user.password);
       if (!valid) {
         return res.status(401).send({ message: 'Wrong password !' });
       }
       else if (valid){
-        
         return res.status(200).json({
           userId: user.id,
           token: jwt.sign(
