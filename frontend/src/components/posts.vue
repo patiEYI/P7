@@ -111,7 +111,7 @@
                     <div>
                         <!-- Button pour supprimer un commentaire -->
                         <button v-if="userId == comment.user_id || userId == 105" @click="deleteComment(comment)" 
-                           class="pt-0 btn text-dark btn-ligth button__delete btn-display offset-6">
+                           class="pt-0 btn text-dark btn-ligth button__delete btn-display offset-5">
                            <span class="button__display border border-white pl-1">Supprimer</span> 
                         </button>
                         <h6 class=" text-dark">
@@ -127,7 +127,7 @@
                         }}
                         </h6>
                         <p> {{comment.date_comment }} </p>
-                        <p class=" text-left text-secondary border post__comment-msg ">
+                        <p class=" text-left text-secondary post__comment-msg ">
                              {{ comment.msg_comment }}
                         </p>
                     </div>
@@ -199,7 +199,7 @@ export default {
 
     methods: {
         // Récupérer un postId
-        async getOnePost(post) {
+       async getOnePost(post) {
             const postId = post.post_id
             await sessionStorage.removeItem("postId");
             await sessionStorage.setItem("postId", postId);

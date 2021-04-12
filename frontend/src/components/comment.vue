@@ -39,7 +39,7 @@ export default {
             const regex = /^[^+,=]{3,}$/
             if (!regex.test(this.comment)) {
                 this.errors.push("Certains caractères ne sont pas autorisé !")
-            }else{ 
+            }else if(!this.errors.length){ 
                 axios.post("http://localhost:3000/comment", {
                     msg_comment: this.comment,
                     post_id: this.postId,

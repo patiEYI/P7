@@ -65,12 +65,11 @@ export default {
     );
   },
   
-
   computed: {
     filteredList() {
       return this.users.filter((user) => {
         if (user !== null) {
-            return (user.lastname || '').includes(this.searchKey); 
+          return (user.lastname || '').includes(this.searchKey); 
         }   
       });
     },

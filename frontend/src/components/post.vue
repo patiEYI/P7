@@ -68,7 +68,7 @@
         <hr>
         <!-- Fin like -->
         <!-- comment -->
-        <div @click="getOneComment(comment)" v-show="ok"
+        <div  
             v-for="(comment, id) in comments.slice().reverse().filter((comment) => {
                 return comment.post_id == postId;    
             })"
@@ -133,7 +133,6 @@ export default {
   components: { Logo, Back,  },
     data () {
         return {
-            ok:false,
             errors:[],
             commentaire:"",
             likes:[],

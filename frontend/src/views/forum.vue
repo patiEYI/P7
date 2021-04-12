@@ -6,7 +6,7 @@
     <div class="shadow-lg">
       <Navbar/><br><br><hr>
       <Formpost/>
-         <!-- loader -->
+      <!-- loader -->
       <div class="mt-5"><Loader/></div>
       <div class="p-2 bg-info shadow-lg">
         <Posts/>     

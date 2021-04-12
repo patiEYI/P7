@@ -77,7 +77,7 @@ export default {
                     localStorage.setItem("token", token),
                     localStorage.setItem("userId", userId),
                     console.log(response)
-                    this.$router.push("/forum")
+                    this.$router.push("/forum");
                     
                 })
                 .catch((error) => (console.log(error))
